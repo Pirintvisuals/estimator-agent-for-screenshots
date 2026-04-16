@@ -111,9 +111,9 @@ function App() {
         hasDrivewayForSkip: true,
         slopeLevel: 'flat',
         existingDemolition: false,
-        fullName: 'James Thornton',
+        fullName: 'Daniel Myers',
         contactPhone: '07512 334 891',
-        contactEmail: 'j.thornton@gmail.com',
+        contactEmail: 'd.myers@hotmail.co.uk',
         postalCode: 'HG5 0TG',
         userBudget: 4000,
         projectStartTiming: 'Next 2-3 months'
@@ -641,7 +641,7 @@ function App() {
                       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div>
                           <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#394f20' }}>Name</p>
-                          <p className="text-sm font-semibold" style={{ color: '#394f20' }}>James</p>
+                          <p className="text-sm font-semibold" style={{ color: '#394f20' }}>Daniel</p>
                         </div>
                         <div>
                           <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#394f20' }}>Phone</p>
