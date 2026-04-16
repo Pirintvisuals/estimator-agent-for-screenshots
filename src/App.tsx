@@ -485,7 +485,7 @@ function App() {
       {/* Header */}
       <header className="border-b p-4" style={{ backgroundColor: '#1a3d5c', borderColor: '#1a5470' }}>
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-xl font-bold" style={{ color: '#fc0002' }}>
+          <h1 className="text-xl font-bold" style={{ color: '#e8a020' }}>
             Mr Landscape Garden
           </h1>
           <p className="mt-1 text-sm" style={{ color: '#7ab8d0' }}>
@@ -562,7 +562,7 @@ function App() {
                     <div style={{ backgroundColor: '#394f20' }}>
                       <div
                         className="px-6 py-2.5 flex items-center justify-between"
-                        style={{ backgroundColor: '#fc0002' }}
+                        style={{ backgroundColor: '#e8a020' }}
                       >
                         <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#394f20' }}>
                           New Enquiry
@@ -571,7 +571,7 @@ function App() {
                           Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
-                      <div className="flex items-center justify-center gap-3 px-6 py-5" style={{ borderBottom: '3px solid #fc0002' }}>
+                      <div className="flex items-center justify-center gap-3 px-6 py-5" style={{ borderBottom: '3px solid #e8a020' }}>
                         <svg viewBox="0 0 24 24" style={{ width: '18px', height: '18px', opacity: 0.45, flexShrink: 0 }} fill="#394f20"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
                         <img
                           src="/mr-logo.jpg"
@@ -606,7 +606,7 @@ function App() {
                         >
                           <div
                             className="absolute inset-y-0 left-1/4 right-1/4 rounded-full"
-                            style={{ backgroundColor: '#fc0002' }}
+                            style={{ backgroundColor: '#e8a020' }}
                           />
                         </div>
                         <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>
@@ -699,9 +699,9 @@ function App() {
               >
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#fc0002' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-pulse delay-75" style={{ backgroundColor: '#fc0002' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-pulse delay-150" style={{ backgroundColor: '#fc0002' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#e8a020' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse delay-75" style={{ backgroundColor: '#e8a020' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse delay-150" style={{ backgroundColor: '#e8a020' }}></div>
                   </div>
                   <span className="text-xs" style={{ color: '#7ab8d0' }}>
                     Thinking...
@@ -752,7 +752,7 @@ function App() {
               disabled={isProcessing || !input.trim()}
               className="rounded-xl px-8 py-3 font-medium transition disabled:opacity-50"
               style={{
-                backgroundColor: '#fc0002',
+                backgroundColor: '#e8a020',
                 color: '#394f20'
               }}
             >
@@ -790,7 +790,7 @@ function App() {
                   className="h-full transition-all duration-500"
                   style={{
                     width: `${state.certaintyLevel}%`,
-                    backgroundColor: state.certaintyLevel >= 85 ? '#fc0002' : '#fc0002'
+                    backgroundColor: state.certaintyLevel >= 85 ? '#e8a020' : '#e8a020'
                   }}
                 />
               </div>
