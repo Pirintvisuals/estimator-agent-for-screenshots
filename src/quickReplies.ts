@@ -23,7 +23,10 @@ export function getQuickReplies(state: ConversationState): QuickReply[] {
     // Service question (first question)
     if (!state.service) {
         return withWriteItOut([
+            { text: '🚗 Driveway Paving', value: 'driveway paving' },
+            { text: '🧱 Block Paving', value: 'block paving' },
             { text: '🏗️ Patio / Paving', value: 'patio' },
+            { text: '🏡 Full Garden Makeover', value: 'full garden makeover landscaping' },
             { text: '🪵 Decking', value: 'decking' },
             { text: '🌿 Lawn Mowing', value: 'lawn mowing' },
             { text: '🌱 Landscaping', value: 'landscaping' },

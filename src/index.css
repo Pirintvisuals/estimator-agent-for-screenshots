@@ -2,14 +2,14 @@
 
 @layer base {
   :root {
-    /* Forest Dark Theme - UK Landscape QS 2026 */
-    --color-bg-primary: #051F20;
-    --color-bg-card: #0B2B26;
-    --color-accent: #8EB69B;
-    --color-text-primary: #DAF1DE;
-    --color-text-secondary: #6B8F7B;
-    --color-border: #1A3F3A;
-    --color-success: #52A675;
+    /* Green Horizon — Brand Theme */
+    --color-bg-primary: #185078;
+    --color-bg-card: #1a3d5c;
+    --color-accent: #60f305;
+    --color-text-primary: #d0eaf7;
+    --color-text-secondary: #7ab8d0;
+    --color-border: #1a5470;
+    --color-success: #60f305;
     --color-warning: #D4A574;
     
     color-scheme: dark;
@@ -23,7 +23,7 @@
 
   body {
     @apply min-h-screen;
-    background-color: #051F20;
+    background-color: #185078;
     color: #DAF1DE;
   }
 
@@ -32,13 +32,13 @@
   }
 
   a {
-    color: #8EB69B;
+    color: #60f305;
     text-decoration: underline;
     text-underline-offset: 4px;
   }
-  
+
   a:hover {
-    color: #A0C7AB;
+    color: #7dff2a;
   }
 }
 

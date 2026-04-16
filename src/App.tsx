@@ -23,6 +23,28 @@ import {
 import DOMPurify from 'dompurify'
 import { estimatorSchema, contactSchema } from './schemas/estimator'
 
+// ── Demo / Preview Mode ──────────────────────────────────────────────────────
+// Set to true to load the widget in a pre-filled completed state for screenshots.
+const DEMO_MODE = true
+
+const DEMO_ESTIMATE: EstimateResult = {
+  lowerBound: 6660,
+  estimate: 7400,
+  upperBound: 8510,
+  lineItems: [
+    { label: 'Living Wall Framework System', amount: 2160, note: '18.0m² × £120/m²', kind: 'material' },
+    { label: 'Plants & Growing Media', amount: 1530, note: '18.0m² × £85/m²', kind: 'material' },
+    { label: 'Automated Irrigation System', amount: 850, note: 'timer-controlled drip feed', kind: 'material' },
+    { label: 'Installation Labour', amount: 1050, note: '14hrs × £75.00/hr', kind: 'labor' },
+    { label: 'Project Management', amount: 559, note: '10% overhead (QC, site supervision)', kind: 'fee' },
+    { label: 'Contingency Reserve', amount: 280, note: '5% contingency allowance', kind: 'fee' },
+    { label: 'Net Profit Margin', amount: 971, note: '15% net profit', kind: 'fee' }
+  ],
+  reasoning: `Materials: Premium tier living wall system specified. Framework, plants, and growing media included.\n\nLogistics: Standard wall-mounted access confirmed. No scaffold required.\n\nStability: Structural wall fixings and waterproof backing included.\n\nIntegrity: 10% Project Management and 5% Contingency included for QC standards.`,
+  projectStatus: 'VIP PRIORITY'
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function App() {
   const [state, setState] = useState<ConversationState>(createInitialState())
   const [input, setInput] = useState('')
@@ -43,19 +65,72 @@ function App() {
     }
   }, [state.messageHistory])
 
-  // Send initial greeting on mount
+  // Mount: either load demo completed state or show initial greeting
   useEffect(() => {
-    const greeting: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: 'agent',
-      content: "Hi! I'm your landscaping assistant. What kind of outdoor transformation are you thinking about?",
-      timestamp: new Date()
+    if (DEMO_MODE) {
+      const ts = new Date()
+      const demoMessages: ChatMessage[] = [
+        { id: 'dm-1', role: 'agent', content: "What kind of work are you looking to get done?", timestamp: ts },
+        { id: 'dm-2', role: 'user', content: "I want a green wall installed on the side of my house", timestamp: ts },
+        { id: 'dm-3', role: 'agent', content: "Great. Living walls make a real difference to a property. How large is the wall you have in mind? Rough dimensions are fine.", timestamp: ts },
+        { id: 'dm-4', role: 'user', content: "About 6 metres wide by 3 metres high, so around 18 square metres", timestamp: ts },
+        { id: 'dm-5', role: 'agent', content: "18m² noted. What level of finish were you thinking? Basic planting, premium specimens, or a full architectural design?", timestamp: ts },
+        { id: 'dm-6', role: 'user', content: "Premium, something that looks really established", timestamp: ts },
+        { id: 'dm-7', role: 'agent', content: "Is there easy access to the wall for installation?", timestamp: ts },
+        { id: 'dm-8', role: 'user', content: "Yes, side access is fine", timestamp: ts },
+        { id: 'dm-9', role: 'agent', content: "Is there somewhere nearby to park a van and unload materials?", timestamp: ts },
+        { id: 'dm-10', role: 'user', content: "Yes, driveway out front", timestamp: ts },
+        { id: 'dm-11', role: 'agent', content: "Is the wall on flat ground or is there a slope to contend with?", timestamp: ts },
+        { id: 'dm-12', role: 'user', content: "Flat", timestamp: ts },
+        { id: 'dm-13', role: 'agent', content: "Anything currently on the wall that needs removing first?", timestamp: ts },
+        { id: 'dm-14', role: 'user', content: "No, just bare brick at the moment", timestamp: ts },
+        { id: 'dm-15', role: 'agent', content: "What's your full name?", timestamp: ts },
+        { id: 'dm-16', role: 'user', content: "Andrew Walker", timestamp: ts },
+        { id: 'dm-17', role: 'agent', content: "Thanks Andrew. Best phone number?", timestamp: ts },
+        { id: 'dm-18', role: 'user', content: "07823 461 052", timestamp: ts },
+        { id: 'dm-19', role: 'agent', content: "And your email address?", timestamp: ts },
+        { id: 'dm-20', role: 'user', content: "a.walker@hotmail.com", timestamp: ts },
+        { id: 'dm-21', role: 'agent', content: "Your postcode?", timestamp: ts },
+        { id: 'dm-22', role: 'user', content: "NE37 2HQ", timestamp: ts },
+        { id: 'dm-23', role: 'agent', content: "What's your rough budget for this project?", timestamp: ts },
+        { id: 'dm-24', role: 'user', content: "£6,000 to £8,000", timestamp: ts },
+        { id: 'dm-25', role: 'agent', content: "When are you looking to start?", timestamp: ts },
+        { id: 'dm-26', role: 'user', content: "Next 2 to 3 months", timestamp: ts },
+        { id: 'dm-27', role: 'agent', content: "Thanks Andrew, putting your estimate together now...", timestamp: ts },
+        { id: 'dm-28', role: 'estimate', content: '', timestamp: ts }
+      ]
+      setState(prev => ({
+        ...prev,
+        messageHistory: demoMessages,
+        service: 'softscaping',
+        area_m2: 18,
+        length_m: 6,
+        width_m: 3,
+        materialTier: 'premium',
+        hasExcavatorAccess: true,
+        hasDrivewayForSkip: true,
+        slopeLevel: 'flat',
+        existingDemolition: false,
+        fullName: 'Andrew Walker',
+        contactPhone: '07823 461 052',
+        contactEmail: 'a.walker@hotmail.com',
+        postalCode: 'NE37 2HQ',
+        userBudget: 7000,
+        projectStartTiming: 'Next 2-3 months'
+      }))
+      setEstimate(DEMO_ESTIMATE)
+    } else {
+      const greeting: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: 'agent',
+        content: "Hi! I'm your landscaping assistant. What kind of outdoor transformation are you thinking about?",
+        timestamp: new Date()
+      }
+      setState(prev => ({
+        ...prev,
+        messageHistory: [greeting]
+      }))
     }
-
-    setState(prev => ({
-      ...prev,
-      messageHistory: [greeting]
-    }))
   }, [])
 
   const handleSubmitLead = async () => {
@@ -177,51 +252,40 @@ function App() {
     try {
       let extracted: ExtractedInfo = {}
 
-      // 1. Try LOCAL EXTRACTION first (Fastest)
-      // We import dynamically to keep initial bundle small, though for this size it's negligible
-      const { extractLocalInformation } = await import('./localExtraction')
-      extracted = extractLocalInformation(userMessage.content)
-      // const localConfidence = calculateConfidence(extracted) // Unused
-
-
-      // 2. Decide if we need the API
-      // If we found the CURRENTLY requested field, or confidence is high, skip API
-      const currentField = detectCurrentField(state)
-
-      // FORCE API USAGE: The user wants "Gemini thinking base" for everything.
-      // We still run local first as a baseline, but we ALWAYS call the API to enhance/correct it.
-      const useLocalOnly = false // (Disabled per request)
-
-      if (useLocalOnly) {
-        console.log('⚡ Using local extraction (Fast Mode)', extracted)
-      } else {
-        // 3. Fallback to API if local failed to understand complex intent
-        try {
-          console.log('🌐 Complex input detected, calling Gemini API...')
-          const response = await fetch('/api/conversation', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              userMessage: userMessage.content,
-              conversationState: state
-            })
+      // FORCE API USAGE: We always route through Gemini (2.5 Flash Lite / 1.5 Flash)
+      // for "Natural Language Processor" capabilities.
+      try {
+        // console.log('🌐 Routing message to Gemini Natural Language Processor...')
+        const response = await fetch('/api/conversation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userMessage: userMessage.content,
+            conversationState: state
           })
+        })
 
-          if (response.ok) {
-            const data = await response.json()
-            const apiExtracted = data.extracted || {}
-            // Merge API results (API takes precedence if conflict, usually)
-            extracted = { ...extracted, ...apiExtracted }
-            console.log('✅ API extraction complete')
-          } else {
-            throw new Error('API not available')
+        if (response.ok) {
+          const data = await response.json()
+          extracted = data.extracted || {}
+
+          // If the API returns an explicit agent response, we'll favor that.
+          if (data.agentResponse) {
+            extracted.agentResponse = data.agentResponse
           }
-        } catch (apiError) {
-          console.log('⚠️ API unavailable, continuing with local only')
+          console.log('✅ Gemini extraction complete', extracted)
+        } else {
+          throw new Error('API not available')
         }
+      } catch (apiError) {
+        console.error('⚠️ API unavailable or failed:', apiError)
+        // Fallback: If API fails, we might end up with empty extraction, 
+        // which will trigger the "Sorry, I had trouble" or generic fallback flow.
       }
 
-      // Update state with extracted information - PASS CURRENT FIELD for context awareness
+      // Update state with extracted information
+      // We detect the CURRENT field *before* the update to see if we satisfied the pending question.
+      const currentField = detectCurrentField(state)
       const updatedState = updateStateWithExtraction(state, extracted, currentField)
 
       // RETRY DETECTION: Check if extraction was successful FOR THE CURRENT FIELD
@@ -258,10 +322,11 @@ function App() {
 
       // Build agent response
       let agentContent = ''
+      const hasAIResponse = !!extracted.agentResponse
 
       // 1. USE AI RESPONSE IF AVAILABLE (Smartest)
-      if (extracted.agentResponse) {
-        agentContent = extracted.agentResponse
+      if (hasAIResponse) {
+        agentContent = extracted.agentResponse!
       }
       // 2. FALLBACK TO LOCAL LOGIC (If API didn't return a reply)
       else {
@@ -271,7 +336,7 @@ function App() {
       // Check if ready for estimate
       if (isReadyForEstimate(stateWithRetry) && !nextQ) {
         const serviceName = stateWithRetry.service || 'landscaping'
-        agentContent += `I've gathered everything. Because it's currently peak season, we are actually only taking on 3 more ${serviceName} projects before the summer starts to ensure we maintain our high standards. I’ll send this over to our senior surveyor right now.`
+        agentContent += `I've gathered everything. Because it's currently peak season, we are actually only taking on 3 more ${serviceName} projects before the summer starts to ensure we maintain our high standards. I'll send this over to our senior surveyor right now.`
 
         const agentMessage: ChatMessage = {
           id: crypto.randomUUID(),
@@ -294,10 +359,12 @@ function App() {
       } else if (nextQ) {
         // Add retry message if showing quick replies
         if (stateWithRetry.showQuickReplies) {
-          agentContent = "Apologies, I didn't verify that. Could you please select an option below or clarify?"
-        } else {
+          agentContent = "Apologies, I didn't catch that. Could you please select an option below or clarify?"
+        } else if (!hasAIResponse) {
+          // Only append local nextQ if AI didn't already provide a response
           agentContent += nextQ
         }
+        // If AI already responded, use that alone (no double question)
 
         const agentMessage: ChatMessage = {
           id: crypto.randomUUID(),
@@ -315,7 +382,7 @@ function App() {
         const agentMessage: ChatMessage = {
           id: crypto.randomUUID(),
           role: 'agent',
-          content: ack || "I understand. Could you tell me a bit more?",
+          content: agentContent.trim() || ack || "I understand. Could you tell me a bit more?",
           timestamp: new Date()
         }
 
@@ -413,16 +480,16 @@ function App() {
   const activeReplies = state.showQuickReplies ? quickReplies : getQuickReplies(state)
 
   return (
-    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#051F20' }}>
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#185078' }}>
 
       {/* Header */}
-      <header className="border-b p-4" style={{ backgroundColor: '#0B2B26', borderColor: '#1A3F3A' }}>
+      <header className="border-b p-4" style={{ backgroundColor: '#1a3d5c', borderColor: '#1a5470' }}>
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-xl font-bold" style={{ color: '#8EB69B' }}>
-            UK Landscape Consultant
+          <h1 className="text-xl font-bold" style={{ color: '#60f305' }}>
+            Green Horizon
           </h1>
-          <p className="mt-1 text-sm" style={{ color: '#6B8F7B' }}>
-            Senior quantity surveyor | UK 2026 standards
+          <p className="mt-1 text-sm" style={{ color: '#7ab8d0' }}>
+            Green wall specialists | Vertical gardens | Living wall installations
           </p>
         </div>
       </header>
@@ -441,8 +508,8 @@ function App() {
                     className="rounded-2xl p-4 max-w-[80%] shadow-sm"
                     style={{
                       backgroundColor: isScarcityAlert ? '#FFF4E5' : '#FFFFFF',
-                      color: isScarcityAlert ? '#B45309' : '#051F20',
-                      border: isScarcityAlert ? '2px solid #F59E0B' : '1px solid #1F7A4A',
+                      color: isScarcityAlert ? '#B45309' : '#185078',
+                      border: isScarcityAlert ? '2px solid #F59E0B' : '1px solid #125878',
                       boxShadow: isScarcityAlert ? '0 0 10px rgba(245, 158, 11, 0.2)' : '0 2px 5px rgba(0,0,0,0.05)'
                     }}
                   >
@@ -451,7 +518,7 @@ function App() {
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(message.content.replace(
                           /\[([^\]]+)\]\(([^\)]+)\)/g,
-                          '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: #1F7A4A; text-decoration: underline; font-weight: bold;">$1</a>'
+                          '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: #125878; text-decoration: underline; font-weight: bold;">$1</a>'
                         ))
                       }}
                     />
@@ -466,7 +533,7 @@ function App() {
                   <div
                     className="rounded-2xl p-4 max-w-[80%] shadow-sm"
                     style={{
-                      backgroundColor: '#1F7A4A',
+                      backgroundColor: '#125878',
                       color: '#FFFFFF',
                       border: 'none'
                     }}
@@ -483,188 +550,135 @@ function App() {
               const isVIP = estimate.projectStatus === 'VIP PRIORITY'
 
               return (
-                <div key={message.id} className="my-6">
-                  {/* Project Feasibility Summary Card */}
+                <div key={message.id} className="my-4">
                   <div
-                    className="rounded-3xl p-6 mb-4"
+                    className="rounded-2xl overflow-hidden"
                     style={{
-                      background: isVIP
-                        ? 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)'
-                        : 'linear-gradient(135deg, #8EB69B 0%, #6B8F7B 100%)',
-                      border: isVIP ? '2px solid #FFD700' : 'none'
+                      backgroundColor: '#ffffff',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2)',
                     }}
                   >
-                    <h3 className="text-lg uppercase tracking-wider font-bold mb-1" style={{ color: '#051F20' }}>
-                      Professional Ballpark Investment
-                    </h3>
-                    <p className="text-xs font-normal opacity-75 mb-4" style={{ color: '#051F20' }}>
-                      (Includes 15-17% 2026 material/labor uplift)
-                    </p>
 
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Name:</span>
-                        <span className="text-sm font-bold" style={{ color: '#051F20' }}>{state.fullName || 'N/A'}</span>
-                      </div>
-
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Phone:</span>
-                        <span className="text-sm font-bold" style={{ color: '#051F20' }}>{state.contactPhone || 'N/A'}</span>
-                      </div>
-
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Email:</span>
-                        <span className="text-sm font-bold" style={{ color: '#051F20' }}>{state.contactEmail || 'N/A'}</span>
-                      </div>
-
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Your Budget:</span>
-                        <span className="text-sm font-bold" style={{ color: '#051F20' }}>
-                          {state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}
+                    {/* 1. New Enquiry bar + logo */}
+                    <div style={{ backgroundColor: '#185078' }}>
+                      <div
+                        className="px-6 py-2.5 flex items-center justify-between"
+                        style={{ backgroundColor: '#60f305' }}
+                      >
+                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#185078' }}>
+                          New Enquiry
+                        </span>
+                        <span className="text-[11px] font-medium" style={{ color: '#185078', opacity: 0.65 }}>
+                          Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
+                      <div className="flex items-center justify-center px-6 py-5" style={{ borderBottom: '3px solid #60f305' }}>
+                        <img
+                          src="/green-horizon-logo.png"
+                          alt="Green Horizon"
+                          style={{ height: '68px', width: 'auto', display: 'block' }}
+                        />
+                      </div>
+                    </div>
 
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Timeline:</span>
-                        <span className="text-sm font-bold" style={{ color: '#051F20' }}>
-                          {state.projectStartTiming || 'N/A'}
+                    {/* 2. Hero cost */}
+                    <div className="px-6 pt-8 pb-6 text-center">
+                      <p
+                        className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2"
+                        style={{ color: '#9ca3af' }}
+                      >
+                        Your next enquiry could look like this
+                      </p>
+                      <p
+                        className="font-black leading-none"
+                        style={{ fontSize: '3.75rem', color: '#185078', letterSpacing: '-3px' }}
+                      >
+                        {formatCurrencyGBP(estimate.estimate)}
+                      </p>
+                      <div className="flex items-center justify-center gap-3 mt-3">
+                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>
+                          {formatCurrencyGBP(estimate.lowerBound)}
+                        </span>
+                        <div
+                          className="relative flex-1 max-w-[80px] h-1 rounded-full"
+                          style={{ backgroundColor: '#e5e7eb' }}
+                        >
+                          <div
+                            className="absolute inset-y-0 left-1/4 right-1/4 rounded-full"
+                            style={{ backgroundColor: '#60f305' }}
+                          />
+                        </div>
+                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>
+                          {formatCurrencyGBP(estimate.upperBound)}
                         </span>
                       </div>
+                      <p className="text-[10px] mt-1" style={{ color: '#d1d5db' }}>indicative range</p>
 
-                      <div className="flex justify-between items-center pb-2 border-b" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Calculated Project Cost:</span>
-                        <span className="text-xl font-bold" style={{ color: '#051F20' }}>
-                          {formatCurrencyGBP(estimate.estimate)}
-                        </span>
-                      </div>
-
-                      <div className="flex justify-between items-center pt-2">
-                        <span className="text-sm font-semibold" style={{ color: '#051F20' }}>Project Status:</span>
+                      {/* 3. VIP badge + context line */}
+                      <div className="mt-5 flex flex-col items-center gap-1.5">
                         <span
-                          className="text-lg font-bold px-3 py-1 rounded-lg"
+                          className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide"
                           style={{
-                            color: isVIP ? '#8B0000' : '#051F20',
-                            backgroundColor: isVIP ? '#FFE5B4' : '#DAF1DE'
+                            backgroundColor: '#185078',
+                            color: '#ffffff',
+                            border: 'none'
                           }}
                         >
                           {estimate.projectStatus}
                         </span>
-                      </div>
-                    </div>
-
-                    {/* Range display */}
-                    <div className="mt-4 pt-4 border-t" style={{ borderColor: isVIP ? '#FFA500' : '#6B8F7B' }}>
-                      <div className="flex items-center justify-between text-xs" style={{ color: '#051F20' }}>
-                        <span>Lower: {formatCurrencyGBP(estimate.lowerBound)}</span>
-                        <span>Upper: {formatCurrencyGBP(estimate.upperBound)}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Line Items */}
-                  <div
-                    className="rounded-2xl p-5 mb-4 space-y-3"
-                    style={{
-                      backgroundColor: '#0B2B26',
-                      border: '1px solid #1A3F3A'
-                    }}
-                  >
-                    <p className="text-xs uppercase tracking-wider font-semibold mb-3" style={{ color: '#6B8F7B' }}>
-                      Line Items Breakdown
-                    </p>
-                    {estimate.lineItems.map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start justify-between gap-4 pb-3 border-b"
-                        style={{ borderColor: '#1A3F3A' }}
-                      >
-                        <div className="flex-1">
-                          <p className="text-sm font-medium" style={{ color: '#374151' }}>
-                            {item.label}
-                          </p>
-                          {item.note && (
-                            <p className="text-xs mt-1" style={{ color: '#6B7280' }}>
-                              {item.note}
-                            </p>
-                          )}
-                        </div>
-                        <p className="text-sm font-semibold whitespace-nowrap" style={{ color: '#1F7A4A' }}>
-                          {formatCurrencyGBP(item.amount)}
+                        <p className="text-[11px]" style={{ color: '#185078' }}>
+                          Budget matches estimated cost
                         </p>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Surveyor's Notes */}
-                  <div
-                    className="rounded-2xl p-5"
-                    style={{
-                      backgroundColor: '#1A3F3A',
-                      border: '1px solid #8EB69B'
-                    }}
-                  >
-                    <p className="text-xs uppercase tracking-wider font-semibold mb-3" style={{ color: '#8EB69B' }}>
-                      Surveyor's Notes
-                    </p>
-                    <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: '#DAF1DE' }}>
-                      {estimate.reasoning}
-                    </p>
-                  </div>
-
-                  {/* Disclaimer */}
-                  <p className="text-[10px] text-center mt-4 mx-4 p-3 rounded-lg leading-tight font-bold shadow-lg" style={{ color: '#1F7A4A', backgroundColor: '#F7F7F7', border: '1px solid #1F7A4A' }}>
-                    This estimate is intended for guidance only and does not constitute a firm quote or legal contract. The "Calculated Project Cost" is a rough approximation based on typical 2026 material and labor rates. Final costs may fluctuate based on a formal site survey, specific material availability, and detailed project specifications.
-                  </p>
-
-                  {/* Submit Button */}
-                  {!emailSent && (
-                    <div className="mt-6 text-center">
-                      <button
-                        onClick={handleSubmitLead}
-                        disabled={sendingEmail}
-                        className="px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105"
-                        style={{
-                          background: estimate.projectStatus === 'VIP PRIORITY'
-                            ? 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)'
-                            : 'linear-gradient(135deg, #8EB69B 0%, #6B8F7B 100%)',
-                          color: '#051F20',
-                          border: 'none',
-                          cursor: sendingEmail ? 'not-allowed' : 'pointer',
-                          opacity: sendingEmail ? 0.7 : 1,
-                          boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-                        }}
-                      >
-                        {sendingEmail ? '📧 Submitting...' : '🔒 Secure My Project Slot'}
-                      </button>
-                      <p className="text-xs mt-2" style={{ color: '#6B8F7B' }}>
-                        Limited slots available for Spring 2026
-                      </p>
                     </div>
-                  )}
 
-                  {/* VIP CALENDLY LINK - Always visible for VIPs, even after submit */}
-                  {estimate.projectStatus === 'VIP PRIORITY' && (
-                    <div className="mt-6 p-4 rounded-xl border border-[#FFD700] bg-[#FFD70010]">
-                      <p className="text-sm font-bold mb-2" style={{ color: '#FFD700' }}>
-                        VIP PRIORITY ACCESS
-                      </p>
-                      <p className="text-sm mb-3" style={{ color: '#DAF1DE' }}>
-                        Because your project is a priority for us, you can book an instant 15-minute consultation with our lead designer right now to lock in your estimate.
-                      </p>
-                      <a
-                        href="https://calendly.com/pirint-milan/weboldal"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block px-4 py-2 rounded-lg font-bold text-sm transition-colors hover:bg-[#FFD700] hover:text-[#051F20]"
-                        style={{
-                          color: '#051F20',
-                          backgroundColor: '#FFD700'
-                        }}
-                      >
-                        📅 Book Consultation Now
-                      </a>
+                    {/* 4. Divider */}
+                    <div className="mx-6" style={{ borderTop: '1px solid #dde8dd' }} />
+
+                    {/* 5. Customer details */}
+                    <div className="px-6 py-5">
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Name</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>Andrew</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Phone</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>{state.contactPhone || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Email</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>{state.contactEmail || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Postcode</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>NE37 2HQ</p>
+                        </div>
+                      </div>
                     </div>
-                  )}
+
+                    {/* 4. Divider */}
+                    <div className="mx-6" style={{ borderTop: '1px solid #dde8dd' }} />
+
+                    {/* 6. Budget + timeline */}
+                    <div className="px-6 py-5">
+                      <div className="grid grid-cols-2 gap-x-6">
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Their budget</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>
+                            {state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#185078' }}>Timeline</p>
+                          <p className="text-sm font-semibold" style={{ color: '#185078' }}>
+                            {state.projectStartTiming || 'N/A'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               )
             }
@@ -678,17 +692,17 @@ function App() {
               <div
                 className="rounded-2xl px-5 py-3"
                 style={{
-                  backgroundColor: '#0B2B26',
-                  border: '1px solid #1A3F3A'
+                  backgroundColor: '#1a3d5c',
+                  border: '1px solid #1a5470'
                 }}
               >
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#8EB69B' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-pulse delay-75" style={{ backgroundColor: '#8EB69B' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-pulse delay-150" style={{ backgroundColor: '#8EB69B' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#60f305' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse delay-75" style={{ backgroundColor: '#60f305' }}></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse delay-150" style={{ backgroundColor: '#60f305' }}></div>
                   </div>
-                  <span className="text-xs" style={{ color: '#6B8F7B' }}>
+                  <span className="text-xs" style={{ color: '#7ab8d0' }}>
                     Thinking...
                   </span>
                 </div>
@@ -704,8 +718,8 @@ function App() {
       <div
         className="sticky bottom-0 border-t p-4"
         style={{
-          backgroundColor: '#0B2B26',
-          borderColor: '#1A3F3A'
+          backgroundColor: '#1a3d5c',
+          borderColor: '#1a5470'
         }}
       >
         <div className="mx-auto max-w-4xl">
@@ -727,9 +741,9 @@ function App() {
               disabled={isProcessing}
               className="flex-1 rounded-xl px-5 py-3 text-sm focus:outline-none focus:ring-2"
               style={{
-                backgroundColor: '#051F20',
+                backgroundColor: '#185078',
                 color: '#DAF1DE',
-                border: '1px solid #1A3F3A'
+                border: '1px solid #1a5470'
               }}
             />
             <button
@@ -737,8 +751,8 @@ function App() {
               disabled={isProcessing || !input.trim()}
               className="rounded-xl px-8 py-3 font-medium transition disabled:opacity-50"
               style={{
-                backgroundColor: '#8EB69B',
-                color: '#051F20'
+                backgroundColor: '#60f305',
+                color: '#185078'
               }}
             >
               Send
@@ -756,8 +770,8 @@ function App() {
                   className="quick-reply-btn rounded-lg px-4 py-2 text-sm font-medium transition-all hover:scale-105 disabled:opacity-50"
                   style={{
                     backgroundColor: '#FFFFFF',
-                    color: '#1F7A4A',
-                    border: '1px solid #1F7A4A',
+                    color: '#125878',
+                    border: '1px solid #125878',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}
                 >
@@ -770,16 +784,16 @@ function App() {
           {/* Certainty indicator */}
           {state.certaintyLevel > 0 && (
             <div className="mt-3 flex items-center gap-2">
-              <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ backgroundColor: '#1A3F3A' }}>
+              <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ backgroundColor: '#1a5470' }}>
                 <div
                   className="h-full transition-all duration-500"
                   style={{
                     width: `${state.certaintyLevel}%`,
-                    backgroundColor: state.certaintyLevel >= 85 ? '#52A675' : '#8EB69B'
+                    backgroundColor: state.certaintyLevel >= 85 ? '#60f305' : '#60f305'
                   }}
                 />
               </div>
-              <span className="text-xs whitespace-nowrap" style={{ color: '#6B8F7B' }}>
+              <span className="text-xs whitespace-nowrap" style={{ color: '#7ab8d0' }}>
                 {state.certaintyLevel}% confident
               </span>
             </div>

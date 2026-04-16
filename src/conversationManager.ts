@@ -261,15 +261,9 @@ export function getNextQuestion(state: ConversationState): string | null {
         return "Is there any existing hardscape or structure we'd need to remove first?"
     }
 
-    // Priority 7: User information
-    if (!state.fullName) {
-        return "Before I prepare your estimate, may I have your full name for the project summary?"
-    }
-    if (!state.contactPhone) {
-        return "And what's the best phone number to reach you at?"
-    }
-    if (!state.contactEmail) {
-        return "And your email address?"
+    // Priority 7: User information — GROUPED to reduce form fatigue
+    if (!state.fullName || !state.contactPhone || !state.contactEmail) {
+        return "Nearly there! Could you share your full name, phone number, and email so I can prepare your estimate?"
     }
     if (state.userBudget === null) {
         return "What budget have you set aside for this project? This helps me understand if we're aligned."
@@ -449,9 +443,7 @@ export function detectCurrentField(state: ConversationState): string {
         return 'demolition'
     }
 
-    if (!state.fullName) return 'fullName'
-    if (!state.contactPhone) return 'contactPhone'
-    if (!state.contactEmail) return 'contactEmail'
+    if (!state.fullName || !state.contactPhone || !state.contactEmail) return 'contactDetails'
     if (state.userBudget === null) return 'userBudget'
     if (!state.projectStartTiming) return 'projectStartTiming'
     if (!state.postalCode) return 'postalCode'
@@ -483,6 +475,12 @@ export function isRelevantFieldExtracted(
         case 'fullName': return newState.fullName !== null && oldState.fullName === null
         case 'contactPhone': return newState.contactPhone !== null && oldState.contactPhone === null
         case 'contactEmail': return newState.contactEmail !== null && oldState.contactEmail === null
+        case 'contactDetails': {
+            const anyNew = (newState.fullName !== null && oldState.fullName === null) ||
+                (newState.contactPhone !== null && oldState.contactPhone === null) ||
+                (newState.contactEmail !== null && oldState.contactEmail === null)
+            return anyNew
+        }
         case 'userBudget': return newState.userBudget !== null && oldState.userBudget === null
         case 'projectStartTiming': return !!newState.projectStartTiming && !oldState.projectStartTiming
         case 'postalCode': return newState.postalCode !== null && oldState.postalCode === null
@@ -496,7 +494,7 @@ export function incrementRetryCount(state: ConversationState, field: string): Co
         ...state,
         retryCount: { ...state.retryCount, [field]: currentCount + 1 },
         lastQuestionField: field,
-        showQuickReplies: currentCount >= 0
+        showQuickReplies: currentCount >= 1
     }
 }
 
