@@ -480,7 +480,7 @@ function App() {
   const activeReplies = state.showQuickReplies ? quickReplies : getQuickReplies(state)
 
   return (
-    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#f5f5f5' }}>
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#ff9900' }}>
 
       {/* Header */}
       <header className="border-b p-4" style={{ backgroundColor: '#1a3d5c', borderColor: '#1a5470' }}>
@@ -553,96 +553,96 @@ function App() {
                   <div
                     className="rounded-2xl overflow-hidden"
                     style={{
-                      backgroundColor: '#ffffff',
-                      boxShadow: '0 20px 60px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.12)',
+                      backgroundColor: '#ff9900',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15)',
                     }}
                   >
 
                     {/* 1. New Enquiry bar + logo */}
-                    <div style={{ backgroundColor: '#111111' }}>
+                    <div>
                       <div
                         className="px-6 py-2.5 flex items-center justify-between"
-                        style={{ backgroundColor: '#ff9900' }}
+                        style={{ backgroundColor: '#111111' }}
                       >
-                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#111111' }}>New Enquiry</span>
-                        <span className="text-[11px] font-medium" style={{ color: '#111111', opacity: 0.65 }}>
+                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#ffffff' }}>New Enquiry</span>
+                        <span className="text-[11px] font-medium" style={{ color: '#ffffff', opacity: 0.6 }}>
                           Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
-                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ borderBottom: '3px solid #ff9900' }}>
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.5, flexShrink: 0 }} fill="#ff9900"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ borderBottom: '2px solid rgba(0,0,0,0.15)' }}>
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.35, flexShrink: 0 }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
                         <img src="/victoria-logo.webp" alt="victorialandscaping" style={{ height: '140px', width: 'auto', display: 'block' }} />
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.5, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#ff9900"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.35, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
                       </div>
                     </div>
 
                     {/* 2. Hero cost */}
                     <div className="px-6 pt-8 pb-6 text-center">
-                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: '#9ca3af' }}>
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: 'rgba(0,0,0,0.45)' }}>
                         Your next enquiry could look like this
                       </p>
                       <p className="font-black leading-none" style={{ fontSize: '3.75rem', color: '#111111', letterSpacing: '-3px' }}>
                         {formatCurrencyGBP(estimate.estimate)}
                       </p>
                       <div className="flex items-center justify-center gap-3 mt-3">
-                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
-                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: '#e5e7eb' }}>
-                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#ff9900' }} />
+                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
+                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}>
+                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#ffffff' }} />
                         </div>
-                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
+                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
                       </div>
-                      <p className="text-[10px] mt-1" style={{ color: '#d1d5db' }}>indicative range</p>
+                      <p className="text-[10px] mt-1" style={{ color: 'rgba(0,0,0,0.3)' }}>indicative range</p>
 
                       {/* VIP badge */}
                       <div className="mt-5 flex flex-col items-center gap-1.5">
-                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#ff9900', color: '#111111' }}>
+                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#ffffff', color: '#111111' }}>
                           {estimate.projectStatus}
                         </span>
-                        <p className="text-[11px]" style={{ color: '#ff9900' }}>Budget matches estimated cost</p>
+                        <p className="text-[11px]" style={{ color: 'rgba(0,0,0,0.5)' }}>Budget matches estimated cost</p>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid #f0f0f0' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
 
                     {/* 5. Customer details */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Name</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Name</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>Daniel</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Phone</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Phone</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactPhone || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Email</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Email</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactEmail || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Postcode</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Postcode</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>Aldeburgh</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Job Type</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Job Type</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>Composite Decking</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid #f0f0f0' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
 
                     {/* 6. Budget + timeline */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Their budget</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Their budget</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#ff9900' }}>Timeline</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Timeline</p>
                           <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.projectStartTiming || 'N/A'}</p>
                         </div>
                       </div>
