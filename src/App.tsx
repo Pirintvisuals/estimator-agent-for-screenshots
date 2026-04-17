@@ -562,10 +562,10 @@ function App() {
                     <div style={{ backgroundColor: '#2d6a2d' }}>
                       <div
                         className="px-6 py-2.5 flex items-center justify-between"
-                        style={{ backgroundColor: '#f5c518' }}
+                        style={{ backgroundColor: '#ffffff' }}
                       >
-                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#1a3a10' }}>New Enquiry</span>
-                        <span className="text-[11px] font-medium" style={{ color: '#1a3a10', opacity: 0.65 }}>
+                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#2d6a2d' }}>New Enquiry</span>
+                        <span className="text-[11px] font-medium" style={{ color: '#2d6a2d', opacity: 0.65 }}>
                           Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
