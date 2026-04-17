@@ -28,19 +28,19 @@ import { estimatorSchema, contactSchema } from './schemas/estimator'
 const DEMO_MODE = true
 
 const DEMO_ESTIMATE: EstimateResult = {
-  lowerBound: 6750,
-  estimate: 7500,
-  upperBound: 8625,
+  lowerBound: 5220,
+  estimate: 5800,
+  upperBound: 6670,
   lineItems: [
-    { label: 'Composite Decking Boards', amount: 3600, note: '30m² × £120/m²', kind: 'material' },
-    { label: 'Subframe & Joists', amount: 1350, note: '30m² × £45/m²', kind: 'material' },
-    { label: 'Fixings, Trims & Edging', amount: 350, note: 'perimeter & hidden fixings', kind: 'material' },
+    { label: 'Block Paving Materials', amount: 2400, note: '40m² × £60/m²', kind: 'material' },
+    { label: 'MOT Type 1 Sub-base', amount: 720, note: '40m² × £18/m²', kind: 'material' },
+    { label: 'Sharp Sand Bedding Layer', amount: 280, note: '40m² × £7/m²', kind: 'material' },
+    { label: 'Edging Courses & Haunching', amount: 360, note: 'perimeter restraints', kind: 'material' },
     { label: 'Installation Labour', amount: 1350, note: '18hrs × £75.00/hr', kind: 'labor' },
-    { label: 'Project Management', amount: 450, note: '7% overhead', kind: 'fee' },
-    { label: 'Contingency Reserve', amount: 225, note: '4% contingency allowance', kind: 'fee' },
-    { label: 'Net Profit Margin', amount: 175, note: '3% net profit', kind: 'fee' }
+    { label: 'Project Management', amount: 406, note: '7% overhead', kind: 'fee' },
+    { label: 'Contingency Reserve', amount: 284, note: '5% contingency allowance', kind: 'fee' }
   ],
-  reasoning: `Materials: Premium composite boards specified. Low maintenance, UV resistant, 25-year warranty grade.\n\nLogistics: Good access confirmed. No ground-level complications anticipated.\n\nIntegrity: 7% Project Management and 4% Contingency included for QC standards.`,
+  reasoning: `Materials: Quality block paving specified with full MOT Type 1 sub-base.\n\nLogistics: Good driveway access confirmed. No abnormal groundwork anticipated.\n\nIntegrity: 7% Project Management and 5% Contingency included for QC standards.`,
   projectStatus: 'VIP PRIORITY'
 }
 // ─────────────────────────────────────────────────────────────────────────────
@@ -114,8 +114,8 @@ function App() {
         fullName: 'Daniel Myers',
         contactPhone: '07512 334 891',
         contactEmail: 'd.myers@hotmail.co.uk',
-        postalCode: 'Aldeburgh',
-        userBudget: 6800,
+        postalCode: 'Woodbridge',
+        userBudget: 5200,
         projectStartTiming: 'Next 2-3 months'
       }))
       setEstimate(DEMO_ESTIMATE)
@@ -480,13 +480,13 @@ function App() {
   const activeReplies = state.showQuickReplies ? quickReplies : getQuickReplies(state)
 
   return (
-    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#ff9900' }}>
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#eef4e8' }}>
 
       {/* Header */}
       <header className="border-b p-4" style={{ backgroundColor: '#1a3d5c', borderColor: '#1a5470' }}>
         <div className="mx-auto max-w-4xl">
           <h1 className="text-xl font-bold" style={{ color: '#031904' }}>
-            victorialandscaping
+            D Sharp Landscapes
           </h1>
           <p className="mt-1 text-sm" style={{ color: '#7ab8d0' }}>
             Green wall specialists | Vertical gardens | Living wall installations
@@ -553,97 +553,97 @@ function App() {
                   <div
                     className="rounded-2xl overflow-hidden"
                     style={{
-                      backgroundColor: '#ff9900',
-                      boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15)',
+                      backgroundColor: '#ffffff',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1)',
                     }}
                   >
 
                     {/* 1. New Enquiry bar + logo */}
-                    <div>
+                    <div style={{ backgroundColor: '#2d6a2d' }}>
                       <div
                         className="px-6 py-2.5 flex items-center justify-between"
-                        style={{ backgroundColor: '#111111' }}
+                        style={{ backgroundColor: '#f5c518' }}
                       >
-                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#ffffff' }}>New Enquiry</span>
-                        <span className="text-[11px] font-medium" style={{ color: '#ffffff', opacity: 0.6 }}>
+                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#1a3a10' }}>New Enquiry</span>
+                        <span className="text-[11px] font-medium" style={{ color: '#1a3a10', opacity: 0.65 }}>
                           Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
-                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ borderBottom: '2px solid rgba(0,0,0,0.15)' }}>
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.35, flexShrink: 0 }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
-                        <img src="/victoria-logo.webp" alt="victorialandscaping" style={{ height: '140px', width: 'auto', display: 'block' }} />
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.35, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ borderBottom: '3px solid #f5c518' }}>
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.45, flexShrink: 0 }} fill="#f5c518"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                        <img src="/dscapes-logo.webp" alt="D Sharp Landscapes" style={{ height: '140px', width: 'auto', display: 'block' }} />
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.45, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#f5c518"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
                       </div>
                     </div>
 
                     {/* 2. Hero cost */}
                     <div className="px-6 pt-8 pb-6 text-center">
-                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: 'rgba(0,0,0,0.45)' }}>
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: '#9ca3af' }}>
                         Your next enquiry could look like this
                       </p>
-                      <p className="font-black leading-none" style={{ fontSize: '3.75rem', color: '#111111', letterSpacing: '-3px' }}>
+                      <p className="font-black leading-none" style={{ fontSize: '3.75rem', color: '#1a3a10', letterSpacing: '-3px' }}>
                         {formatCurrencyGBP(estimate.estimate)}
                       </p>
                       <div className="flex items-center justify-center gap-3 mt-3">
-                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
-                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}>
-                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#ffffff' }} />
+                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
+                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: '#e5e7eb' }}>
+                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#f5c518' }} />
                         </div>
-                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
+                        <span className="text-xs tabular-nums" style={{ color: '#9ca3af' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
                       </div>
-                      <p className="text-[10px] mt-1" style={{ color: 'rgba(0,0,0,0.3)' }}>indicative range</p>
+                      <p className="text-[10px] mt-1" style={{ color: '#d1d5db' }}>indicative range</p>
 
                       {/* VIP badge */}
                       <div className="mt-5 flex flex-col items-center gap-1.5">
-                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#ffffff', color: '#111111' }}>
+                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#f5c518', color: '#1a3a10' }}>
                           {estimate.projectStatus}
                         </span>
-                        <p className="text-[11px]" style={{ color: 'rgba(0,0,0,0.5)' }}>Budget matches estimated cost</p>
+                        <p className="text-[11px]" style={{ color: '#2d6a2d' }}>Budget matches estimated cost</p>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid #e8f0e0' }} />
 
                     {/* 5. Customer details */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Name</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>Daniel</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Name</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>Daniel</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Phone</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactPhone || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Phone</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>{state.contactPhone || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Email</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactEmail || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Email</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>{state.contactEmail || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Postcode</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>Aldeburgh</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Postcode</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>Woodbridge</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Job Type</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>Composite Decking</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Job Type</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>Block Paved Driveway</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid #e8f0e0' }} />
 
                     {/* 6. Budget + timeline */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Their budget</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Their budget</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>{state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.45)' }}>Timeline</p>
-                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.projectStartTiming || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#f5c518' }}>Timeline</p>
+                          <p className="text-sm font-semibold" style={{ color: '#1a3a10' }}>{state.projectStartTiming || 'N/A'}</p>
                         </div>
                       </div>
                     </div>
