@@ -114,7 +114,7 @@ function App() {
         fullName: 'Daniel Myers',
         contactPhone: '07512 334 891',
         contactEmail: 'd.myers@hotmail.co.uk',
-        postalCode: 'Great Yarmouth',
+        postalCode: 'FY8 3LG',
         userBudget: 5200,
         projectStartTiming: 'Next 2-3 months'
       }))
@@ -480,16 +480,16 @@ function App() {
   const activeReplies = state.showQuickReplies ? quickReplies : getQuickReplies(state)
 
   return (
-    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#0a0a0a' }}>
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#111111' }}>
 
       {/* Header */}
-      <header className="border-b p-4" style={{ backgroundColor: '#1a3d5c', borderColor: '#1a5470' }}>
+      <header className="border-b p-4" style={{ backgroundColor: '#1a1a1a', borderColor: '#2d7a2d' }}>
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-xl font-bold" style={{ color: '#031904' }}>
-            LJS Landscapes
+          <h1 className="text-xl font-bold" style={{ color: '#2d7a2d' }}>
+            Dc landscaping Lytham
           </h1>
           <p className="mt-1 text-sm" style={{ color: '#7ab8d0' }}>
-            Green wall specialists | Vertical gardens | Living wall installations
+            Landscaping specialists | Driveways | Garden Design | Lytham St Annes
           </p>
         </div>
       </header>
@@ -553,9 +553,9 @@ function App() {
                   <div
                     className="rounded-2xl overflow-hidden"
                     style={{
-                      backgroundColor: '#111111',
-                      boxShadow: '0 25px 70px rgba(0,0,0,0.6), 0 4px 20px rgba(0,0,0,0.3)',
-                      border: '1px solid rgba(74,170,74,0.15)',
+                      backgroundColor: '#2d7a2d',
+                      boxShadow: '0 25px 70px rgba(0,0,0,0.35), 0 4px 20px rgba(0,0,0,0.18)',
+                      border: '1px solid rgba(0,0,0,0.12)',
                     }}
                   >
 
@@ -563,88 +563,88 @@ function App() {
                     <div>
                       <div
                         className="px-6 py-2.5 flex items-center justify-between"
-                        style={{ backgroundColor: '#1a5c1a' }}
+                        style={{ backgroundColor: '#111111' }}
                       >
-                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#7dd87d' }}>New Enquiry</span>
-                        <span className="text-[11px] font-medium" style={{ color: '#7dd87d', opacity: 0.7 }}>
+                        <span className="text-sm font-black tracking-wide uppercase" style={{ color: '#ffffff' }}>New Enquiry</span>
+                        <span className="text-[11px] font-medium" style={{ color: '#ffffff', opacity: 0.6 }}>
                           Today at {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </span>
                       </div>
-                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ backgroundColor: '#111111', borderBottom: '2px solid #2d8a2d' }}>
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.5, flexShrink: 0 }} fill="#4aaa4a"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
-                        <img src="/ljs-logo.jpg" alt="LJS Landscapes" style={{ height: '140px', width: 'auto', display: 'block' }} />
-                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.5, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#4aaa4a"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                      <div className="flex items-center justify-center gap-4 px-6 py-7" style={{ borderBottom: '2px solid rgba(0,0,0,0.2)' }}>
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.4, flexShrink: 0 }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
+                        <img src="/dc-landscaping-logo.png" alt="Dc landscaping Lytham" style={{ height: '140px', width: 'auto', display: 'block' }} />
+                        <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', opacity: 0.4, flexShrink: 0, transform: 'scaleX(-1)' }} fill="#111111"><path d="M17 8C8 10 5.9 16.17 3.82 19H5.71C6.39 17.73 7.29 16.54 8.5 15.59C12 13 16 11 21 12C21 12 21 8.5 17 8Z"/></svg>
                       </div>
                     </div>
 
                     {/* 2. Hero cost */}
                     <div className="px-6 pt-8 pb-6 text-center">
-                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: 'rgba(125,216,125,0.45)' }}>
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2" style={{ color: 'rgba(0,0,0,0.45)' }}>
                         Your next enquiry could look like this
                       </p>
-                      <p className="font-black leading-none" style={{ fontSize: '3.75rem', color: '#7dd87d', letterSpacing: '-3px' }}>
+                      <p className="font-black leading-none" style={{ fontSize: '3.75rem', color: '#111111', letterSpacing: '-3px' }}>
                         {formatCurrencyGBP(estimate.estimate)}
                       </p>
                       <div className="flex items-center justify-center gap-3 mt-3">
-                        <span className="text-xs tabular-nums" style={{ color: 'rgba(125,216,125,0.4)' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
-                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: 'rgba(74,170,74,0.2)' }}>
-                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#4aaa4a' }} />
+                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.lowerBound)}</span>
+                        <div className="relative flex-1 max-w-[80px] h-1 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}>
+                          <div className="absolute inset-y-0 left-1/4 right-1/4 rounded-full" style={{ backgroundColor: '#111111' }} />
                         </div>
-                        <span className="text-xs tabular-nums" style={{ color: 'rgba(125,216,125,0.4)' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
+                        <span className="text-xs tabular-nums" style={{ color: 'rgba(0,0,0,0.4)' }}>{formatCurrencyGBP(estimate.upperBound)}</span>
                       </div>
-                      <p className="text-[10px] mt-1" style={{ color: 'rgba(125,216,125,0.3)' }}>indicative range</p>
+                      <p className="text-[10px] mt-1" style={{ color: 'rgba(0,0,0,0.3)' }}>indicative range</p>
 
                       {/* VIP badge */}
                       <div className="mt-5 flex flex-col items-center gap-1.5">
-                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#2d8a2d', color: '#ffffff' }}>
+                        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style={{ backgroundColor: '#111111', color: '#ffffff' }}>
                           {estimate.projectStatus}
                         </span>
-                        <p className="text-[11px]" style={{ color: '#4aaa4a' }}>Budget matches estimated cost</p>
+                        <p className="text-[11px]" style={{ color: 'rgba(0,0,0,0.5)' }}>Budget matches estimated cost</p>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid rgba(74,170,74,0.15)' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
 
                     {/* 5. Customer details */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Name</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>Daniel</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Name</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>Daniel</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Phone</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>{state.contactPhone || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Phone</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactPhone || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Email</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>{state.contactEmail || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Email</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.contactEmail || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Postcode</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>Great Yarmouth</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Postcode</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>FY8 3LG</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Job Type</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>Block Paved Driveway</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Job Type</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>Block Paved Driveway</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-6" style={{ borderTop: '1px solid rgba(74,170,74,0.15)' }} />
+                    <div className="mx-6" style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
 
                     {/* 6. Budget + timeline */}
                     <div className="px-6 py-5">
                       <div className="grid grid-cols-2 gap-x-6">
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Their budget</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>{state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Their budget</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.userBudget ? formatCurrencyGBP(state.userBudget) : 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#2d8a2d' }}>Timeline</p>
-                          <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>{state.projectStartTiming || 'N/A'}</p>
+                          <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Timeline</p>
+                          <p className="text-sm font-semibold" style={{ color: '#111111' }}>{state.projectStartTiming || 'N/A'}</p>
                         </div>
                       </div>
                     </div>
